@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { toast } from '@/hooks/use-toast';
 
 interface ProductCardProps {
   image: string;
@@ -9,6 +10,9 @@ interface ProductCardProps {
   price: string;
   impact?: string;
   className?: string;
+  // Future Shopify-specific props
+  productId?: string;
+  variantId?: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ 
@@ -16,8 +20,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
   title, 
   price, 
   impact,
-  className
+  className,
+  productId,
+  variantId
 }) => {
+  const handleAddToCart = () => {
+    // Placeholder for Shopify cart integration
+    console.log('Adding to cart:', { productId, variantId, title });
+    
+    // Show success toast
+    toast({
+      title: "Added to cart",
+      description: `${title} has been added to your cart.`,
+    });
+  };
+
   return (
     <div className={cn("product-card rounded-md overflow-hidden bg-white", className)}>
       <div className="h-48 overflow-hidden relative">
@@ -39,6 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <Button 
             size="sm" 
             className="text-xs h-8 bg-impact-blue hover:bg-impact-blue/90"
+            onClick={handleAddToCart}
           >
             Add to cart
           </Button>
